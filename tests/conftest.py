@@ -34,7 +34,7 @@ def make_elm_project(elm_stuff_fixture_path, module_fixture_path):
     def for_version(elm_version, root_dir, src_dir='.', package_overrides={}, copy_elm_stuff=False, modules=[]):
         elm_json = dict(default_elm_json, **{'source-directories': [src_dir]})
         elm_json.update(package_overrides)
-        elm_json['elm-version'] = '{v} <= v <= {v}'.format(v=elm_version)
+        elm_json['elm-version'] = elm_version
         root_dir.join('elm.json').write(json.dumps(elm_json))
         if copy_elm_stuff:
             with root_dir.as_cwd():
@@ -48,7 +48,7 @@ def make_elm_project(elm_stuff_fixture_path, module_fixture_path):
 
     return for_version
 
-
+# TODO: support packages, too
 default_elm_json= {
     "type": "application",
     "source-directories": [
