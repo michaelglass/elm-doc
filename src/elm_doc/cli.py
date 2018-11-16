@@ -24,7 +24,7 @@ def validate_mount_at(ctx, param, value):
         raise click.BadParameter('should be an absolute path, like /{}'.format(value))
 
 
-def validate_elm_make(ctx, param, value):
+def validate_elm(ctx, param, value):
     if value is None:
         return value
 
@@ -35,8 +35,8 @@ def validate_elm_make(ctx, param, value):
     if realpath is None or not os.path.isfile(realpath):
         raise click.BadParameter('{} not found'.format(value))
 
-    elm_make_mimetype = magic.from_file(realpath, mime=True)
-    if not elm_make_mimetype.startswith('text'):
+    elm_mimetype = magic.from_file(realpath, mime=True)
+    if not elm_mimetype.startswith('text'):
         return value
 
     perhaps_binwrap_of = os.path.normpath(
@@ -66,7 +66,7 @@ def _resolve_path(path: str) -> Path:
               metavar='dir')
 @click.option('--elm',
               metavar='path/to/elm',
-              callback=validate_elm_make,
+              callback=validate_elm,
               help=('specify which elm to use. if not specified, '
                     'elm will be installed afresh in a temporary directory'))
 @click.option('--mount-at',
@@ -90,7 +90,7 @@ def _resolve_path(path: str) -> Path:
 @click.argument('include_paths', nargs=-1)
 def main(
         output,
-        elm_make,
+        elm,
         mount_at,
         exclude,
         force_exclusion,
@@ -109,7 +109,7 @@ def main(
         return create_tasks(
             _resolve_path(project_path),
             _resolve_path(output) if output is not None else None,
-            elm_make=_resolve_path(elm_make) if elm_make is not None else None,
+            elm=_resolve_path(elm) if elm is not None else None,
             include_paths=resolved_include_paths,
             exclude_modules=exclude_modules,
             force_exclusion=force_exclusion,

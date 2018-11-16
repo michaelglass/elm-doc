@@ -56,7 +56,7 @@ def build_package_docs_json(
         package: ElmPackage,
         package_modules: List[ModuleName],
         output_path: Path = None,
-        elm_make: Path = None,
+        elm: Path = None,
         validate: bool = False):
     elm_package_with_exposed_modules = dict(ChainMap(
         {'exposed-modules': package_modules},
@@ -69,9 +69,9 @@ def build_package_docs_json(
         with open(str(overlayed_elm_package_path), 'w') as f:
             json.dump(elm_package_with_exposed_modules, f)
 
-        if elm_make is None:
+        if elm is None:
             elm_platform.install(root_path, package.elm_version)
-            elm_make = elm_platform.get_npm_executable_path(root_path, 'elm')
+            elm = elm_platform.get_npm_executable_path(root_path, 'elm')
 
         if validate:
             # todo: support windows if we want to
@@ -82,7 +82,7 @@ def build_package_docs_json(
             str(elm_package.description_path(package)),
             os.environ)
         subprocess.check_call(
-            [str(elm_make), '--yes', '--docs', str(output_path), '--output', '/dev/null'],
+            [str(elm), '--yes', '--docs', str(output_path), '--output', '/dev/null'],
             cwd=str(package.path),
             env=env)
 
@@ -106,7 +106,7 @@ def package_task_basename_factory(package):
 def create_package_tasks(
         output_path: Optional[Path],
         package: ElmPackage,
-        elm_make: Path = None,
+        elm: Path = None,
         include_paths: List[str] = [],
         exclude_modules: List[str] = [],
         force_exclusion: bool = False,
@@ -125,7 +125,7 @@ def create_package_tasks(
             'basename': basename('validate_package_docs_json'),
             'actions': [(build_package_docs_json,
                          (package, package_modules),
-                         {'elm_make': elm_make, 'validate': True})],
+                         {'elm': elm, 'validate': True})],
             'targets': [],
             # 'file_dep': [all_elm_files_in_source_dirs] # todo
         }
@@ -150,7 +150,7 @@ def create_package_tasks(
             'actions': [(create_folder, (str(package_docs_root),)),
                         (build_package_docs_json,
                          (package, package_modules),
-                         {'elm_make': elm_make, 'output_path': docs_json_path})],
+                         {'elm': elm, 'output_path': docs_json_path})],
             'targets': [docs_json_path],
             # 'file_dep': [all_elm_files_in_source_dirs] # todo
         }
