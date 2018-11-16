@@ -90,6 +90,6 @@ def build_assets(output_path: Path, mount_point: str = ''):
     stop_max_attempt_number=10)
 def _install_elm_packages(root_path):
     subprocess.check_call(
-        ['./node_modules/.bin/elm package', 'install', '--yes'],
+        ['./node_modules/.bin/elm', 'install', '--yes'],
         cwd=root_path,
     )

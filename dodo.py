@@ -26,7 +26,7 @@ def create_elm_stuff_fixture(elm_version: str, tarball: str):
     with TemporaryDirectory() as tmpdir:
         root_path = Path(tmpdir)
         elm_platform.install(root_path, elm_version)
-        subprocess.check_call(['./node_modules/.bin/elm package', 'install', '--yes'], cwd=root_path)
+        subprocess.check_call(['./node_modules/.bin/elm', 'install', '--yes'], cwd=root_path)
         elm_stuff = root_path / elm_package.STUFF_DIRECTORY
         with tarfile.open(tarball, "w:gz") as tar:
             tar.add(elm_stuff, arcname=os.path.basename(elm_stuff))
