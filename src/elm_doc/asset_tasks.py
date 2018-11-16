@@ -19,7 +19,7 @@ codeshifter = os.path.normpath(os.path.join(os.path.dirname(__file__), 'native',
 
 @capture_subprocess_error
 def build_assets(output_path: Path, mount_point: str = ''):
-    tarball = 'https://api.github.com/repos/elm-lang/package.elm-lang.org/tarball/0.18.0'
+    tarball = 'https://api.github.com/repos/elm-lang/package.elm-lang.org/tarball/0.19.0'
     with TemporaryDirectory() as tmpdir:
         root_path = Path(tmpdir)
 
@@ -45,7 +45,7 @@ def build_assets(output_path: Path, mount_point: str = ''):
         for main_elm in root_path.glob(str(frontend_pages / '*.elm')):
             basename = main_elm.stem
             subprocess.check_call(
-                ['./node_modules/.bin/elm-make',
+                ['./node_modules/.bin/elm',
                  str(main_elm),
                  '--output',
                  'artifacts/Page-{0}.js'.format(basename)],
@@ -90,6 +90,6 @@ def build_assets(output_path: Path, mount_point: str = ''):
     stop_max_attempt_number=10)
 def _install_elm_packages(root_path):
     subprocess.check_call(
-        ['./node_modules/.bin/elm-package', 'install', '--yes'],
+        ['./node_modules/.bin/elm package', 'install', '--yes'],
         cwd=root_path,
     )

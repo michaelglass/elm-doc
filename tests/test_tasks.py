@@ -4,7 +4,7 @@ from elm_doc import tasks
 
 
 def test_create_tasks_only_elm_stuff(tmpdir, make_elm_project):
-    elm_version = '0.18.0'
+    elm_version = '0.19.0'
     make_elm_project(elm_version, tmpdir, copy_elm_stuff=True)
     output_dir = tmpdir.join('docs')
     with tmpdir.as_cwd():
@@ -24,7 +24,7 @@ def test_create_tasks_only_elm_stuff(tmpdir, make_elm_project):
 
 
 def test_create_tasks_only_project_modules(tmpdir, overlayer, make_elm_project):
-    elm_version = '0.18.0'
+    elm_version = '0.19.0'
     modules = ['Main.elm']
     make_elm_project(elm_version, tmpdir, modules=modules)
     output_dir = tmpdir.join('docs')
@@ -46,7 +46,7 @@ def test_create_tasks_only_project_modules(tmpdir, overlayer, make_elm_project):
 
 
 def test_create_tasks_for_validation(tmpdir, make_elm_project):
-    elm_version = '0.18.0'
+    elm_version = '0.19.0'
     make_elm_project(elm_version, tmpdir)
     output_dir = tmpdir.join('docs')
     with tmpdir.as_cwd():

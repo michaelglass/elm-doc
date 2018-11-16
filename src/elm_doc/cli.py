@@ -48,8 +48,8 @@ def validate_elm_make(ctx, param, value):
             '*',
             '.cabal-sandbox',
             'bin',
-            'elm-make'))
-    raise click.BadParameter('''should be the real elm-make binary; this looks like a text file.
+            'elm'))
+    raise click.BadParameter('''should be the real elm binary; this looks like a text file.
 if you installed Elm through npm, then try {}'''.format(perhaps_binwrap_of))
 
 
@@ -64,10 +64,10 @@ def _resolve_path(path: str) -> Path:
 ))
 @click.option('--output', '-o',
               metavar='dir')
-@click.option('--elm-make',
-              metavar='path/to/elm-make',
+@click.option('--elm',
+              metavar='path/to/elm',
               callback=validate_elm_make,
-              help=('specify which elm-make to use. if not specified, '
+              help=('specify which elm to use. if not specified, '
                     'elm will be installed afresh in a temporary directory'))
 @click.option('--mount-at',
               metavar='/path',

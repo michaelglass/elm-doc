@@ -18,7 +18,7 @@ def create_tasks(
         force_exclusion: bool = False,
         mount_point: str = '',
         validate: bool = False):
-    # todo: gracefully handle missing elm-package.json
+    # todo: gracefully handle missing elm.json
     project_package = elm_package.from_path(project_path)
     # todo: gracefully handle missing exact-dependencies.json
     deps = list(elm_package.iter_dependencies(project_package))

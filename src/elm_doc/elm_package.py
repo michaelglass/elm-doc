@@ -6,7 +6,7 @@ import urllib.parse
 
 
 ModuleName = str
-DESCRIPTION_FILENAME = 'elm-package.json'
+DESCRIPTION_FILENAME = 'elm.json'
 STUFF_DIRECTORY = 'elm-stuff'
 EXACT_DEPS_FILENAME = 'exact-dependencies.json'
 PACKAGES_DIRECTORY = 'packages'

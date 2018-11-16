@@ -17,8 +17,8 @@
 #endif
 
 const char* replace_path(const char* pathname) {
-  // relies on elm-make changing cwd to package directory before reading elm-package.json
-  if (strcmp(pathname, "elm-package.json") != 0) {
+  // relies on elm changing cwd to package directory before reading elm.json
+  if (strcmp(pathname, "elm.json") != 0) {
     return pathname;
   }
   const char* requested_replacement = getenv("USE_ELM_PACKAGE");
@@ -35,7 +35,7 @@ const char* replace_path(const char* pathname) {
   char abspath[PATH_MAX];
   realpath(pathname, abspath);
   if (strcmp(requested_replacee, abspath) != 0) {
-    // not the elm-package.json to be replaced
+    // not the elm.json to be replaced
     return pathname;
   }
   // fprintf(stderr, "replaced with %s\n", requested_replacement);

@@ -15,8 +15,8 @@ def test_ld_preload_is_preserved():
 
 
 def test_overlayer_environment_is_configured():
-    original_elm_package = 'elm-package.json'
-    modified_elm_package = 'tmp/elm-package.json'
+    original_elm_package = 'elm.json'
+    modified_elm_package = 'tmp/elm.json'
     env = elm_package_overlayer_env(modified_elm_package, original_elm_package, {})
 
     assert env['USE_ELM_PACKAGE'] == modified_elm_package
