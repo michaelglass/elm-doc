@@ -52,7 +52,7 @@ def make_elm_project(elm_stuff_fixture_path, module_fixture_path):
 default_elm_json= {
     "type": "application",
     "source-directories": [
-        "src"
+        "."
     ],
     "elm-version": "0.19.0",
     "dependencies": {
