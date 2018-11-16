@@ -8,8 +8,6 @@ import urllib.parse
 ModuleName = str
 DESCRIPTION_FILENAME = 'elm.json'
 STUFF_DIRECTORY = 'elm-stuff'
-PACKAGES_DIRECTORY = 'packages'
-
 
 ElmPackageBase = NamedTuple('ElmPackageBase', [
     ('path', Path),
