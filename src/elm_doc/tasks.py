@@ -20,9 +20,6 @@ def create_tasks(
         validate: bool = False):
     # todo: gracefully handle missing elm.json
     project_package = elm_package.from_path(project_path)
-    # todo: gracefully handle missing exact-dependencies.json
-    deps = list(elm_package.iter_dependencies(project_package))
-    all_packages = [project_package] + deps
 
     for task in package_tasks.create_package_tasks(
             output_path,

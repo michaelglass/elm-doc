@@ -8,7 +8,6 @@ import urllib.parse
 ModuleName = str
 DESCRIPTION_FILENAME = 'elm.json'
 STUFF_DIRECTORY = 'elm-stuff'
-EXACT_DEPS_FILENAME = 'exact-dependencies.json'
 PACKAGES_DIRECTORY = 'packages'
 
 
@@ -49,19 +48,6 @@ def description_path(package: ElmPackage) -> Path:
 def load_description(path: Path) -> Dict:
     with open(str(path)) as f:
         return json.load(f)
-
-
-def iter_dependencies(package: ElmPackage) -> Iterator[ElmPackage]:
-    exact_deps_path = package.path / STUFF_DIRECTORY / EXACT_DEPS_FILENAME
-    exact_deps = {}
-    try:
-        with open(str(exact_deps_path)) as f:
-            exact_deps = json.load(f)
-    except OSError:
-        # todo: warn about missing exact deps
-        pass
-    for name, version in exact_deps.items():
-        yield from_path(package.path / STUFF_DIRECTORY / PACKAGES_DIRECTORY / name / version, is_dep=True)
 
 
 def glob_package_modules(
